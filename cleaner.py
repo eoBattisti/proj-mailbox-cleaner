@@ -3,7 +3,7 @@ import email
 from email.header import decode_header
 import logging
 
-from defaults import USERNAME, PASSWORD, EMAILS_TO_EXCLUDE, EMAILS_CATEGORY
+from defaults import USERNAME, PASSWORD, EMAILS_TO_EXCLUDE
 
 
 class Cleaner:
@@ -20,6 +20,8 @@ class Cleaner:
             status, messages = self.imap.search(None, f'FROM "{sender}"')
             messages = messages[0].split(b' ')
             for mail in messages:
+                if not mail:
+                    continue
                 self.imap.store(mail, "+FLAGS", "\\Deleted")
         self.imap.expunge()
         self.imap.close()
