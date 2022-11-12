@@ -1,0 +1,2 @@
+emails:
+  to_exclude: ['store@store.com', 'foo@bar.com']
